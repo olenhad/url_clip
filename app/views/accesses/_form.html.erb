@@ -1,0 +1,29 @@
+<%= form_for(@access) do |f| %>
+  <% if @access.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@access.errors.count, "error") %> prohibited this access from being saved:</h2>
+
+      <ul>
+      <% @access.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :url_id %><br>
+    <%= f.number_field :url_id %>
+  </div>
+  <div class="field">
+    <%= f.label :access_time %><br>
+    <%= f.datetime_select :access_time %>
+  </div>
+  <div class="field">
+    <%= f.label :ip_addr %><br>
+    <%= f.text_field :ip_addr %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
