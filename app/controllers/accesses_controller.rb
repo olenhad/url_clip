@@ -80,6 +80,16 @@ class AccessesController < ApplicationController
     end
   end
 
+  def by_short_url
+    r = ShortUrl.find_by :short_url => params[:short_url]
+    if r.nil?
+      render :json => {:status => "Not Found!"}, :status => 404
+    else
+      as = Access.where short_url_id: r.id
+      render :json => {:total => as.size, :accesses => as}
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_access

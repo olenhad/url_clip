@@ -1,9 +1,13 @@
 UrlClip::Application.routes.draw do
+
+  get '/s/:short_url' => 'accesses#goto'
+  get '/accesses/short_url/:short_url' => 'accesses#by_short_url'
+
   resources :accesses
 
   resources :short_urls
 
-  get '/s/:short_url' => 'accesses#goto'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
