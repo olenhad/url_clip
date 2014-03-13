@@ -61,6 +61,15 @@ class AccessesController < ApplicationController
     end
   end
 
+  def goto
+    r = ShortUrl.find_by :short_url => params[:short_url]
+    if r.nil?
+      render :file => "public/404.html",  :status => 404
+    else
+      redirect_to r.original_url
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_access
