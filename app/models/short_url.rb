@@ -1,5 +1,5 @@
 class ShortUrl < ActiveRecord::Base
-
+  after_initialize :after_initialize
   def self.generate_hash
     options = [('a'..'z'), ('A'..'Z'), ('0' .. '9')].map { |i| i.to_a }.flatten
     required_chars = Math.log(ShortUrl.count, options.length).ceil + 1
@@ -12,4 +12,9 @@ class ShortUrl < ActiveRecord::Base
     test_hash
 
   end
+
+  def after_initialize
+    self.short_url = ShortUrl.generate_hash
+  end
+
 end
