@@ -15,7 +15,7 @@
   <tbody>
     <% @accesses.each do |access| %>
       <tr>
-        <td><%= access.url_id %></td>
+        <td><%= access.short_url_id %></td>
         <td><%= access.access_time %></td>
         <td><%= access.ip_addr %></td>
         <td><%= link_to 'Show', access %></td>

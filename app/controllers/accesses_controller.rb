@@ -66,6 +66,16 @@ class AccessesController < ApplicationController
     if r.nil?
       render :file => "public/404.html",  :status => 404
     else
+      access = Access.new
+      access.access_time = DateTime.now
+      access.ip_addr = request.remote_ip
+      access.short_url = r
+
+      if access.save
+      else
+        puts "Save failed!"
+      end
+
       redirect_to r.original_url
     end
   end
