@@ -4,7 +4,7 @@ class ShortUrl < ActiveRecord::Base
   validates :original_url, presence: true, format: {with: VALID_URL_REGEX}
   def self.generate_hash
     options = [('a'..'z'), ('A'..'Z'), ('0' .. '9')].map { |i| i.to_a }.flatten
-    required_chars = Math.log(ShortUrl.count, options.length).ceil + 1
+    required_chars = Math.log(ShortUrl.count + 1, options.length).ceil + 1
 
     exists = true;
     while not exists.nil?
