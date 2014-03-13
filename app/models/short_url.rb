@@ -1,5 +1,7 @@
 class ShortUrl < ActiveRecord::Base
-  after_initialize :after_initialize
+  before_save :setup_url
+  VALID_URL_REGEX = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/
+  validates :original_url, presence: true, format: {with: VALID_URL_REGEX}
   def self.generate_hash
     options = [('a'..'z'), ('A'..'Z'), ('0' .. '9')].map { |i| i.to_a }.flatten
     required_chars = Math.log(ShortUrl.count, options.length).ceil + 1
@@ -13,7 +15,7 @@ class ShortUrl < ActiveRecord::Base
 
   end
 
-  def after_initialize
+  def setup_url
     self.short_url = ShortUrl.generate_hash
   end
 
